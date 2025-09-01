@@ -101,7 +101,8 @@
     "swrv": "^1.1.0",
     "ts-md5": "^2.0.1",
     "typescript-api-pro": "^0.0.6",
-    "unified": "^11.0.5"
+    "unified": "^11.0.5",
+    "vue-i18n": "11"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^4.16.1",
