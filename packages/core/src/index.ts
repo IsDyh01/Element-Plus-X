@@ -1,7 +1,7 @@
 import type { ConfigProviderContext } from 'element-plus';
 import type { App, ObjectPlugin } from 'vue';
+import type { GlobalConfigProviderProps } from './components/GlobalConfigProvider/types';
 import ElementPlus from 'element-plus';
-import { createI18n } from 'vue-i18n';
 import Attachments from './components/Attachments/index.vue';
 import Bubble from './components/Bubble/index.vue';
 import BubbleList from './components/BubbleList/index.vue';
@@ -9,6 +9,8 @@ import ConfigProvider from './components/ConfigProvider/index.vue';
 import Conversations from './components/Conversations/index.vue';
 import EditorSender from './components/EditorSender/index.vue';
 import FilesCard from './components/FilesCard/index.vue';
+import { GLOBAL_CONFIG_PROVIDE_KEY, GLOBAL_LOCALE_KEY } from './components/GlobalConfigProvider/constants';
+import GlobalConfigProvider from './components/GlobalConfigProvider/index.vue';
 import MentionSender from './components/MentionSender/index.vue';
 import Prompts from './components/Prompts/index.vue';
 import Sender from './components/Sender/index.vue';
@@ -28,22 +30,15 @@ export interface ElementPlusXOptions {
 export * from './components';
 export * from './hooks';
 
-const ElementPlusX: ObjectPlugin<ElementPlusXOptions> = {
-  install(app: App, options: ElementPlusXOptions) {
-    const { locale } = options;
-    const name = locale.name;
-    const code = locale.elx;
-    const i18n = createI18n({
-      locale: name,
-      messages: {
-        [name]: code,
-      },
-    });
+const ElementPlusX: ObjectPlugin<GlobalConfigProviderProps> = {
+  install(app: App, options: GlobalConfigProviderProps) {
+    app.provide(GLOBAL_CONFIG_PROVIDE_KEY, options);
+    app.provide(GLOBAL_LOCALE_KEY, options.locale);
+
     const elementPlusContext = options.elementPlusContext;
     if (elementPlusContext) {
       app.use(ElementPlus, elementPlusContext);
     }
-    app.use(i18n);
     app.component('Attachments', Attachments);
     app.component('Bubble', Bubble);
     app.component('BubbleList', BubbleList);
@@ -51,6 +46,7 @@ const ElementPlusX: ObjectPlugin<ElementPlusXOptions> = {
     app.component('Conversations', Conversations);
     app.component('EditorSender', EditorSender);
     app.component('FilesCard', FilesCard);
+    app.component('GlobalConfigProvider', GlobalConfigProvider);
     app.component('MentionSender', MentionSender);
     app.component('Prompts', Prompts);
     app.component('Sender', Sender);

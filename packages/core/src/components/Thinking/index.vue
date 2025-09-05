@@ -11,6 +11,7 @@ import {
   Opportunity,
   SuccessFilled
 } from '@element-plus/icons-vue';
+import useLocal from '../../utils/useLoccal';
 
 const props = withDefaults(defineProps<ThinkingProps>(), {
   content: '',
@@ -27,6 +28,8 @@ const props = withDefaults(defineProps<ThinkingProps>(), {
 
 // 定义组件 Emits
 const emit = defineEmits<ThinkingEmits>();
+
+const { t } = useLocal();
 
 const isExpanded = ref(props.modelValue);
 
@@ -109,12 +112,12 @@ watch(
         <slot name="label" :status="props.status">
           {{
             status === 'thinking'
-              ? $t('thinking.thinking')
+              ? t('thinking.thinking')
               : status === 'error'
-                ? $t('thinking.error')
+                ? t('thinking.error')
                 : status === 'end'
-                  ? $t('thinking.end')
-                  : $t('thinking.start')
+                  ? t('thinking.end')
+                  : t('thinking.start')
           }}
         </slot>
       </span>

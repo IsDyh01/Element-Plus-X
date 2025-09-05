@@ -1,12 +1,21 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Thinking } from 'vue-element-plus-x'; 
+import { Thinking, GlobalConfigProvider } from 'vue-element-plus-x'; 
+import { zhCn, en } from 'vue-element-plus-x/locale';
+import zhCnElementPlus from 'element-plus/es/locale/lang/zh-cn';
 
 const senderValue = ref(false);
+const locale = ref(zhCn);
+const changeLocale = () => {
+  locale.value  = en;
+}
+
 </script>
 
 <template>
-   <div
+   <GlobalConfigProvider :locale="locale" :element-plus-context="{ locale: zhCnElementPlus }">
+    <el-button @click="changeLocale">切换</el-button>
+    <div
     style="
       display: flex;
       gap: 10px;
@@ -50,6 +59,8 @@ const senderValue = ref(false);
   <el-button>1123</el-button>
   <el-table mb-1 :data="[]" />
       <el-pagination :total="100" />
+</GlobalConfigProvider>
+  
 </template>
 
 <style scoped>
