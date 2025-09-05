@@ -1,5 +1,4 @@
 import type { App, Plugin } from 'vue';
-import type { I18n } from 'vue-i18n';
 import { createI18n } from 'vue-i18n';
 import Attachments from './components/Attachments/index.vue';
 import Bubble from './components/Bubble/index.vue';
@@ -18,15 +17,15 @@ import Welcome from './components/Welcome/index.vue';
 import XMarkdown from './components/XMarkdown/index.vue';
 import XMarkdownAsync from './components/XMarkdownAsync/index.vue';
 
-export * from './components';
-export * from './hooks';
-
 type LocaleObject = Record<string, any>;
 interface ElementPlusXOptions {
   locale: LocaleObject;
 }
 
-const ElementPlusX: Plugin = {
+export * from './components';
+export * from './hooks';
+
+const ElementPlusX = {
   install(app: App, options: ElementPlusXOptions) {
     const { locale } = options;
     const name = locale.name;
