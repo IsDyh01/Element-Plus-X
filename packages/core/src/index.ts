@@ -1,4 +1,6 @@
-import type { App, Plugin } from 'vue';
+import type { ConfigProviderContext } from 'element-plus';
+import type { App, ObjectPlugin } from 'vue';
+import ElementPlus from 'element-plus';
 import { createI18n } from 'vue-i18n';
 import Attachments from './components/Attachments/index.vue';
 import Bubble from './components/Bubble/index.vue';
@@ -18,14 +20,15 @@ import XMarkdown from './components/XMarkdown/index.vue';
 import XMarkdownAsync from './components/XMarkdownAsync/index.vue';
 
 type LocaleObject = Record<string, any>;
-interface ElementPlusXOptions {
+export interface ElementPlusXOptions {
   locale: LocaleObject;
+  elementPlusContext?: ConfigProviderContext;
 }
 
 export * from './components';
 export * from './hooks';
 
-const ElementPlusX = {
+const ElementPlusX: ObjectPlugin<ElementPlusXOptions> = {
   install(app: App, options: ElementPlusXOptions) {
     const { locale } = options;
     const name = locale.name;
@@ -36,6 +39,10 @@ const ElementPlusX = {
         [name]: code,
       },
     });
+    const elementPlusContext = options.elementPlusContext;
+    if (elementPlusContext) {
+      app.use(ElementPlus, elementPlusContext);
+    }
     app.use(i18n);
     app.component('Attachments', Attachments);
     app.component('Bubble', Bubble);

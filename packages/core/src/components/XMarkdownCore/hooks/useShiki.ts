@@ -12,7 +12,6 @@ import type {
   ThemedTokenWithVariants,
   TokensResult
 } from 'shiki';
-import { GLOBAL_SHIKI_KEY } from '@components/XMarkdownCore/shared';
 import {
   createdBundledHighlighter,
   createOnigurumaEngine,
@@ -20,6 +19,7 @@ import {
 } from 'shiki';
 import { onUnmounted, provide, ref } from 'vue';
 import { languageLoaders, themeLoaders } from '../../../hooks/shiki-loader';
+import { GLOBAL_SHIKI_KEY } from '../shared/index';
 
 export interface GlobalShiki {
   codeToHtml: (
@@ -54,9 +54,9 @@ export interface GlobalShiki {
   getLastGrammarState:
     | ((element: ThemedToken[][] | Root) => GrammarState)
     | ((
-        code: string,
-        options: CodeToTokensBaseOptions<string, string>
-      ) => Promise<GrammarState>);
+      code: string,
+      options: CodeToTokensBaseOptions<string, string>
+    ) => Promise<GrammarState>);
 }
 
 /**
@@ -77,7 +77,8 @@ class ShikiManager {
   }
 
   public getShiki(): GlobalShiki {
-    if (this.shikiInstance) return this.shikiInstance;
+    if (this.shikiInstance)
+      return this.shikiInstance;
 
     const highlighterFactory = createdBundledHighlighter({
       langs: languageLoaders,

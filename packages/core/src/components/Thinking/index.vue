@@ -109,12 +109,12 @@ watch(
         <slot name="label" :status="props.status">
           {{
             status === 'thinking'
-              ? '思考中...'
+              ? $t('thinking.thinking')
               : status === 'error'
-                ? '思考遇到问题'
+                ? $t('thinking.error')
                 : status === 'end'
-                  ? '思考完成'
-                  : '开始思考'
+                  ? $t('thinking.end')
+                  : $t('thinking.start')
           }}
         </slot>
       </span>

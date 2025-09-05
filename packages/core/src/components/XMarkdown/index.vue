@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import type { MarkdownProps } from '../XMarkdownCore/shared/types';
-import { useShiki } from '@components/XMarkdownCore/hooks/useShiki';
 import { MarkdownRenderer } from '../XMarkdownCore';
 import { useMarkdownContext } from '../XMarkdownCore/components/MarkdownProvider';
+import { useShiki } from '../XMarkdownCore/hooks/index';
 import { DEFAULT_PROPS } from '../XMarkdownCore/shared/constants';
 
 const props = withDefaults(defineProps<MarkdownProps>(), DEFAULT_PROPS);

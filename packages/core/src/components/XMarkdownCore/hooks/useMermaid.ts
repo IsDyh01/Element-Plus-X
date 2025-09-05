@@ -1,8 +1,8 @@
 import type { Ref } from 'vue';
-import { MERMAID_CACHE_KEY_LENGTH } from '@components/XMarkdownCore/shared';
 import useSWRV from 'swrv';
 import { Md5 } from 'ts-md5';
 import { computed } from 'vue';
+import { MERMAID_CACHE_KEY_LENGTH } from '../shared/index';
 
 interface UseMermaidOptions {
   id?: string;
@@ -11,7 +11,8 @@ interface UseMermaidOptions {
 }
 
 async function loadMermaid() {
-  if (typeof window === 'undefined') return null;
+  if (typeof window === 'undefined')
+    return null;
   const mermaidModule = await import('mermaid');
   return mermaidModule.default;
 }
@@ -54,7 +55,8 @@ export function useMermaid(
   // 生成缓存键
   const cacheKey = computed(() => {
     const contentValue = typeof content === 'string' ? content : content.value;
-    if (!contentValue) return null;
+    if (!contentValue)
+      return null;
 
     const hash =
       contentValue.length > MERMAID_CACHE_KEY_LENGTH
@@ -70,11 +72,13 @@ export function useMermaid(
     async (): Promise<string> => {
       const contentValue =
         typeof content === 'string' ? content : content.value;
-      if (!contentValue?.trim()) return '';
+      if (!contentValue?.trim())
+        return '';
 
       try {
         const mermaidInstance = await loadMermaid();
-        if (!mermaidInstance) return contentValue;
+        if (!mermaidInstance)
+          return contentValue;
         const isValid = await mermaidInstance.parse(contentValue);
         if (!isValid) {
           console.log('Mermaid parse error: Invalid syntax');

@@ -1,15 +1,11 @@
 export default {
   name: 'zh-cn',
   elx: {
-    breadcrumb: {
-      label: '面包屑',
+    thinking: {
+      thinking: '思考中...',
+      error: '思考遇到问题',
+      end: '思考完成',
+      start: '开始思考',
     },
-    colorpicker: {
-      confirm: '确定',
-      clear: '清空',
-      defaultLabel: '颜色选择器',
-      description: '当前颜色 {color}，按 Enter 键选择新颜色',
-      alphaLabel: '选择透明度的值',
-    }
   },
 };
