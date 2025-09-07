@@ -1,13 +1,18 @@
 <script setup lang="ts">
 import type { ConfigProviderProps } from './types';
-import { APP_CONFIG_PROVIDE_KEY, DEFAULT_APP_CONFIG } from './constants';
+import { DEFAULT_APP_CONFIG } from './constants';
+import { useProvideGlobalConfig } from './hooks';
 
 const props = withDefaults(defineProps<ConfigProviderProps>(), {});
 
-provide<ConfigProviderProps>(APP_CONFIG_PROVIDE_KEY, {
-  md: props.md ?? DEFAULT_APP_CONFIG.md,
-  mdPlugins: props.mdPlugins ?? DEFAULT_APP_CONFIG.mdPlugins
+const config = computed<ConfigProviderProps>(() => {
+  return {
+    md: props.md ?? DEFAULT_APP_CONFIG.md,
+    mdPlugins: props.mdPlugins ?? DEFAULT_APP_CONFIG.mdPlugins,
+    elxLocale: props.elxLocale ?? DEFAULT_APP_CONFIG.elxLocale
+  };
 });
+useProvideGlobalConfig(config);
 </script>
 
 <template>

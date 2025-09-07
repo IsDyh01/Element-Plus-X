@@ -5,6 +5,8 @@ import { zhCn } from '../../locale';
 
 export const APP_CONFIG_PROVIDE_KEY = Symbol('vue-element-plus-x-config');
 
+export const APP_ELX_LOCALE_PROVIDE_KEY = Symbol('vue-element-plus-x-locale');
+
 export const DEFAULT_MD_CONFIG: Options = {
   html: true,
   linkify: true,
@@ -15,4 +17,7 @@ export const DEFAULT_MD_CONFIG: Options = {
 export const DEFAULT_APP_CONFIG: ConfigProviderProps = {
   mdPlugins: [],
   md: new MarkdownIt(DEFAULT_MD_CONFIG),
+  elxLocale: zhCn
 };
+
+// export const DEFAULT_APP_ELX_LOCALE: LocaleObject = zhCn;

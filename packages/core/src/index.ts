@@ -5,11 +5,12 @@ import ElementPlus from 'element-plus';
 import Attachments from './components/Attachments/index.vue';
 import Bubble from './components/Bubble/index.vue';
 import BubbleList from './components/BubbleList/index.vue';
+import { APP_CONFIG_PROVIDE_KEY } from './components/ConfigProvider/constants';
 import ConfigProvider from './components/ConfigProvider/index.vue';
 import Conversations from './components/Conversations/index.vue';
 import EditorSender from './components/EditorSender/index.vue';
 import FilesCard from './components/FilesCard/index.vue';
-import { GLOBAL_CONFIG_PROVIDE_KEY, GLOBAL_LOCALE_KEY } from './components/GlobalConfigProvider/constants';
+// import { GLOBAL_CONFIG_PROVIDE_KEY, GLOBAL_LOCALE_KEY } from './components/GlobalConfigProvider/constants';
 import GlobalConfigProvider from './components/GlobalConfigProvider/index.vue';
 import MentionSender from './components/MentionSender/index.vue';
 import Prompts from './components/Prompts/index.vue';
@@ -32,8 +33,8 @@ export * from './hooks';
 
 const ElementPlusX: ObjectPlugin<GlobalConfigProviderProps> = {
   install(app: App, options: GlobalConfigProviderProps) {
-    app.provide(GLOBAL_CONFIG_PROVIDE_KEY, options);
-    app.provide(GLOBAL_LOCALE_KEY, options.locale);
+    // app.provide(GLOBAL_CONFIG_PROVIDE_KEY, options);
+    app.provide(APP_CONFIG_PROVIDE_KEY, options.locale);
 
     const elementPlusContext = options.elementPlusContext;
     if (elementPlusContext) {
