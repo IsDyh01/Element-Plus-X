@@ -1,16 +1,15 @@
-import type { ConfigProviderContext } from 'element-plus';
-import type { App, ObjectPlugin } from 'vue';
-import type { GlobalConfigProviderProps } from './components/GlobalConfigProvider/types';
+import type { App, Plugin } from 'vue';
+import type { ElxConfigProviderProps } from './components/ConfigProvider/types';
 import ElementPlus from 'element-plus';
 import Attachments from './components/Attachments/index.vue';
 import Bubble from './components/Bubble/index.vue';
 import BubbleList from './components/BubbleList/index.vue';
 import { APP_CONFIG_PROVIDE_KEY } from './components/ConfigProvider/constants';
+import { useProvideGlobalConfig } from './components/ConfigProvider/hooks/useProvideGlobalConfig';
 import ConfigProvider from './components/ConfigProvider/index.vue';
 import Conversations from './components/Conversations/index.vue';
 import EditorSender from './components/EditorSender/index.vue';
 import FilesCard from './components/FilesCard/index.vue';
-// import { GLOBAL_CONFIG_PROVIDE_KEY, GLOBAL_LOCALE_KEY } from './components/GlobalConfigProvider/constants';
 import GlobalConfigProvider from './components/GlobalConfigProvider/index.vue';
 import MentionSender from './components/MentionSender/index.vue';
 import Prompts from './components/Prompts/index.vue';
@@ -22,23 +21,16 @@ import Welcome from './components/Welcome/index.vue';
 import XMarkdown from './components/XMarkdown/index.vue';
 import XMarkdownAsync from './components/XMarkdownAsync/index.vue';
 
-type LocaleObject = Record<string, any>;
-export interface ElementPlusXOptions {
-  locale: LocaleObject;
-  elementPlusContext?: ConfigProviderContext;
-}
-
 export * from './components';
 export * from './hooks';
 
-const ElementPlusX: ObjectPlugin<GlobalConfigProviderProps> = {
-  install(app: App, options: GlobalConfigProviderProps) {
-    // app.provide(GLOBAL_CONFIG_PROVIDE_KEY, options);
-    app.provide(APP_CONFIG_PROVIDE_KEY, options.locale);
-
-    const elementPlusContext = options.elementPlusContext;
-    if (elementPlusContext) {
-      app.use(ElementPlus, elementPlusContext);
+const ElementPlusX: Plugin<ElxConfigProviderProps> = {
+  install(app: App, options: ElxConfigProviderProps) {
+    if (options) {
+      useProvideGlobalConfig(options);
+    }
+    if (options && options.eleConfigContext) {
+      app.use(ElementPlus, options.eleConfigContext);
     }
     app.component('Attachments', Attachments);
     app.component('Bubble', Bubble);

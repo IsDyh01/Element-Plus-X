@@ -7,7 +7,7 @@ import type {
   TypingConfig
 } from './types.d.ts';
 import DOMPurify from 'dompurify'; // 新增安全过滤
-import { useConfigProvider } from '../ConfigProvider/hooks.ts';
+import { APP_CONFIG_PROVIDE_KEY, DEFAULT_APP_CONFIG } from '../../components/ConfigProvider/constants';
 
 const props = withDefaults(defineProps<TypewriterProps>(), {
   content: '',
@@ -17,20 +17,21 @@ const props = withDefaults(defineProps<TypewriterProps>(), {
 });
 const emits = defineEmits<TypewriterEmits>();
 
-const configProvider = useConfigProvider();
-const { md } = configProvider;
+const config = inject(APP_CONFIG_PROVIDE_KEY, computed(() => DEFAULT_APP_CONFIG));
+const { md, mdPlugins } = config.value;
+
 
 const markdownContentRef = ref<HTMLElement | null>(null);
 const typeWriterRef = ref<HTMLElement | null>(null);
 
 function initMarkdownPlugins() {
-  if (configProvider.mdPlugins?.length) {
-    configProvider.mdPlugins.forEach(plugin => {
+  if (mdPlugins?.length) {
+    mdPlugins.forEach(plugin => {
       md?.use(plugin);
     });
   }
-  if (props.mdPlugins?.length) {
-    props.mdPlugins.forEach(plugin => {
+  if (mdPlugins?.length) {
+    mdPlugins.forEach(plugin => {
       md?.use(plugin);
     });
   }

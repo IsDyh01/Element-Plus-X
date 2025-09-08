@@ -2,16 +2,25 @@
 import { ref } from 'vue'
 import { ConfigProvider, Thinking } from 'vue-element-plus-x'
 import { en, zhCn } from 'vue-element-plus-x/locale'
+// import AboutTest from './views/AboutTest.vue'
+import zhCnElementPlus  from 'element-plus/es/locale/lang/zh-cn'
+import enElementPlus  from 'element-plus/es/locale/lang/en'
 
 const senderValue = ref(false)
 const locale = ref(zhCn)
+const elecontext = ref({
+  locale: zhCnElementPlus
+})
 function changeLocale() {
   locale.value = en
+  elecontext.value.locale = enElementPlus
 }
+
 </script>
 
 <template>
-  <ConfigProvider :elx-locale="locale">
+  <ConfigProvider :elx-locale="locale" :ele-config-context="elecontext">
+    <!-- <AboutTest msg="123" /> -->
     <el-button @click="changeLocale"> 切换 </el-button>
     <div
       style="

@@ -1,24 +1,18 @@
 import type { LocaleObject } from '../components/GlobalConfigProvider/types';
-import { APP_ELX_LOCALE_PROVIDE_KEY } from '@components/ConfigProvider/constants';
 import { createI18n } from 'vue-i18n';
+import { APP_ELX_LOCALE_PROVIDE_KEY, DEFAULT_APP_CONFIG } from '../components/ConfigProvider/constants';
 
 function useLocal() {
   const providerLocale = inject<
-    ComputedRef<LocaleObject | undefined> | LocaleObject
-  >(APP_ELX_LOCALE_PROVIDE_KEY);
+    ComputedRef<LocaleObject>
+  >(APP_ELX_LOCALE_PROVIDE_KEY, computed(() => DEFAULT_APP_CONFIG.elxLocale!));
 
   const locale_name = computed(() => {
-    if (isReactive(providerLocale)) {
-      return (providerLocale?.value as LocaleObject)?.name;
-    }
-    return (providerLocale as LocaleObject)?.name;
+    return providerLocale.value.name;
   });
 
   const locale_code = computed(() => {
-    if (isReactive(providerLocale)) {
-      return (providerLocale?.value as LocaleObject)?.elx;
-    }
-    return (providerLocale as LocaleObject)?.elx;
+    return providerLocale.value.elx;
   });
 
   const i18n = computed(() => {

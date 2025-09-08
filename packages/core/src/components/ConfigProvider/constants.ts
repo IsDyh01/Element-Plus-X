@@ -1,5 +1,5 @@
 import type { Options } from 'markdown-it';
-import type { ConfigProviderProps } from './types';
+import type { ElxConfigProviderProps } from './types';
 import MarkdownIt from 'markdown-it';
 import { zhCn } from '../../locale';
 
@@ -14,10 +14,8 @@ export const DEFAULT_MD_CONFIG: Options = {
   breaks: true
 };
 
-export const DEFAULT_APP_CONFIG: ConfigProviderProps = {
+export const DEFAULT_APP_CONFIG: ElxConfigProviderProps = {
   mdPlugins: [],
   md: new MarkdownIt(DEFAULT_MD_CONFIG),
   elxLocale: zhCn
 };
-
-// export const DEFAULT_APP_ELX_LOCALE: LocaleObject = zhCn;
